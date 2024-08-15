@@ -11,7 +11,11 @@
 }
 
 .musicWrap {
+  height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
 }

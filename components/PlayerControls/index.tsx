@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "./PlayerControls.module.scss";
 import { useMutation } from "@tanstack/react-query";
 import { pauseSong, playSong } from "@/lib/apis/spotify/player";
+import { useAtom } from "jotai";
+import { access, songChoice } from "@/lib/atoms/atoms";
 
 declare global {
   interface Window {
@@ -10,7 +12,7 @@ declare global {
   }
 }
 
-const PlayerControls = ({ accessToken }: { accessToken: string }) => {
+const PlayerControls = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [deviceId, setDeviceId] = useState<string | null>(null);
   const [player, setPlayer] = useState<any>(null);
@@ -18,6 +20,8 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
   const [trackDuration, setTrackDuration] = useState(0); // 트랙의 총 길이
   const [trackPosition, setTrackPosition] = useState(0); // 현재 트랙의 진행 시간
   const [track, setTrack] = useState<any>(null); // 현재 재생 중인 트랙 정보
+  const [token, setToken] = useAtom(access);
+  const [changeMusic, setChangeMusic] = useAtom(songChoice);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -33,7 +37,7 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
         getOAuthToken: (cb: (arg0: string) => void) => {
           cb(
             //access token goes here
-            "BQBxL-n90yCq1C5-58H00RkC4_USJbP4k76gcUUHCTcQm6ZM9YUiVMOJ2399LFPmwHzi7ZETAUs9bU98q3c4wGA5rHxZ7-TYSERfNUdunRrFCSwPxXMutj509SY5r6RUY_pIyTb-8hSGfRHcCf-y69UryIwJEsTaSJerYySJdOCNJUNnXT2yW7MFIauLWkPqFJNUY350QaAzUg0AJBQrR2rvVZvqecjDiJnvnK5IVzN-iQ"
+            token
           );
         },
         volume: 0.5,
@@ -74,10 +78,10 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
     return () => {
       document.body.removeChild(script);
     };
-  }, [accessToken]);
+  }, [token]);
 
   const { mutate: playMusic } = useMutation({
-    mutationFn: () => playSong(deviceId, accessToken),
+    mutationFn: () => playSong(deviceId, token, changeMusic),
     onSuccess: () => {
       setIsPlaying(true);
     },
@@ -87,7 +91,7 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
   });
 
   const { mutate: pauseMusic } = useMutation({
-    mutationFn: () => pauseSong(deviceId, accessToken),
+    mutationFn: () => pauseSong(deviceId, token),
     onSuccess: () => {
       setIsPlaying(false);
     },

@@ -1,24 +1,34 @@
 import Image from "next/image";
 import style from "./Music.module.scss";
+import { useAtom } from "jotai";
+import { songChoice } from "@/lib/atoms/atoms";
 
-interface Music {
-  artist: string;
-  image: string[];
-  listeners: string;
-  mbid: string;
-  name: string;
-  streamable: string;
-  url: string;
-}
+export default function Music({ song }: any) {
+  console.log(song);
+  const [changeMusic, setChangeMusic] = useAtom(songChoice);
 
-export default function Music({ artists }: any) {
-  console.log(artists);
+  const handleChangeMusic = () => {
+    setChangeMusic(song.uri);
+  };
   return (
     <div className={style.musicWrap}>
-      <div className={style.musicImg}>
-        <Image src={artists.image[2]["#text"]} alt="노래 썸네일" fill />
+      <div className={style.imgName}>
+        <div className={style.musicImg}>
+          <Image
+            src={song.album.images[1].url}
+            alt="노래 썸네일"
+            fill
+            sizes="40px"
+          />
+        </div>
+        <div className={style.artist}>
+          <div>{song.name}</div>
+          <div className={style.artistName}>{song.artists[0].name}</div>
+        </div>
+        <div className={style.play} onClick={handleChangeMusic}>
+          재생
+        </div>
       </div>
-      <div>{artists.artist}</div>
     </div>
   );
 }

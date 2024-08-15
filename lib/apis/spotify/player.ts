@@ -2,7 +2,8 @@ import { instance2 } from "./axios";
 
 export const playSong = async (
   deviceId: string | null,
-  accessToken: string
+  accessToken: string,
+  changeMusic: string = "spotify:track:7FbrGaHYVDmfr7KoLIZnQ7"
 ) => {
   if (!deviceId) {
     console.error("Device ID is null. Cannot play the song.");
@@ -15,7 +16,7 @@ export const playSong = async (
     await instance2.put(
       `/v1/me/player/play?device_id=${deviceId}`,
       {
-        uris: ["spotify:track:7FbrGaHYVDmfr7KoLIZnQ7"], // 뉴진스 - Ditto 트랙 ID
+        uris: [changeMusic], // 뉴진스 - Ditto 트랙 ID
       },
       {
         headers: {
