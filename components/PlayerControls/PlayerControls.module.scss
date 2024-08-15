@@ -50,3 +50,72 @@
   font-size: 14px;
   margin-top: 10px;
 }
+.playerControls {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #121212;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.trackInfo {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 4px;
+  }
+
+  .trackDetails {
+    .trackName {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .trackArtist {
+      font-size: 14px;
+      color: #b3b3b3;
+    }
+  }
+}
+
+.controls {
+  .controlButton {
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #1ed760;
+    }
+  }
+}
+
+.progressBar {
+  width: 100%;
+  height: 5px;
+  background-color: #404040;
+  border-radius: 2px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+
+  .progress {
+    height: 100%;
+    background-color: #1db954;
+    transition: width 0.2s;
+  }
+}

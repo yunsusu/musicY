@@ -4,7 +4,13 @@ export const playSong = async (
   deviceId: string | null,
   accessToken: string
 ) => {
-  console.log(deviceId);
+  if (!deviceId) {
+    console.error("Device ID is null. Cannot play the song.");
+    return;
+  }
+
+  console.log(`Playing song on device: ${deviceId}`);
+
   try {
     await instance2.put(
       `/v1/me/player/play?device_id=${deviceId}`,
@@ -27,6 +33,13 @@ export const pauseSong = async (
   deviceId: string | null,
   accessToken: string
 ) => {
+  if (!deviceId) {
+    console.error("Device ID is null. Cannot pause the song.");
+    return;
+  }
+
+  console.log(`Pausing song on device: ${deviceId}`);
+
   try {
     await instance2.put(
       `/v1/me/player/pause?device_id=${deviceId}`,
