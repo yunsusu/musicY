@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./PlayerControls.module.scss";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { pauseSong, playSong } from "@/lib/apis/spotify/player";
 
 declare global {
@@ -58,7 +58,7 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
   }, [accessToken]);
 
   const { mutate: playMusic } = useMutation({
-    mutationFn: () => playSong(deviceId, accessToken), // 함수를 참조로 전달
+    mutationFn: () => playSong(deviceId, accessToken),
     onSuccess: () => {
       setIsPlaying(true);
     },
@@ -68,7 +68,7 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
   });
 
   const { mutate: pauseMusic } = useMutation({
-    mutationFn: () => pauseSong(deviceId, accessToken), // 함수를 참조로 전달
+    mutationFn: () => pauseSong(deviceId, accessToken),
     onSuccess: () => {
       setIsPlaying(false);
     },
@@ -78,7 +78,11 @@ const PlayerControls = ({ accessToken }: { accessToken: string }) => {
   });
 
   const handleMusic = () => {
-    isPlaying ? pauseMusic : playMusic;
+    if (isPlaying) {
+      pauseMusic(); // 함수 호출
+    } else {
+      playMusic(); // 함수 호출
+    }
   };
 
   return (
