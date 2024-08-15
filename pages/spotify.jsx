@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const clientId = "9cd43e0a85eb4c29bbd4900fddb31c8f";
-const redirectUri = "http://localhost:3000";
+const redirectUri = "http://music-y.vercel.app";
 const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state",
