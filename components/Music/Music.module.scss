@@ -1,0 +1,16 @@
+@import "@/styles/main.scss";
+
+.musicWrap {
+  width: 100%;
+  max-width: 50rem;
+  padding: 5rem;
+  height: 5rem;
+  background-color: purple;
+  border-radius: 1.2rem;
+}
+
+.musicImg {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+}

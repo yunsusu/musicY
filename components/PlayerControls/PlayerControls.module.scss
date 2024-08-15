@@ -1,0 +1,52 @@
+.playerControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #1db954; /* Spotify 그린 */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.controlButton {
+  background-color: white;
+  color: #1db954;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: #1db954;
+    color: white;
+  }
+
+  &.play {
+    background-color: #1db954;
+    color: white;
+  }
+
+  &.pause {
+    background-color: #e74c3c; /* 일시 정지 버튼의 빨간색 */
+    color: white;
+  }
+}
+
+.errorMessage {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.loadingMessage {
+  color: white;
+  font-size: 14px;
+  margin-top: 10px;
+}

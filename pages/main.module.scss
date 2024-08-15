@@ -1,0 +1,17 @@
+@import "@/styles/main.scss";
+
+.mainWrap {
+  position: absolute;
+  left: 54%;
+  transform: translateX(-50%);
+  width: 85vw;
+  height: 75vh;
+  border-radius: 3rem;
+  background-color: rgba($color: #fff, $alpha: 0.7);
+}
+
+.musicWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
