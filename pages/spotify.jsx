@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const SpotifyAuth = ({ onAuthSuccess }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authUrl, setAuthUrl] = useState("");
-
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const url = window.location.href; // 클라이언트에서만 window.location 사용
+      const url = window.location.origin;
       const clientId = "9cd43e0a85eb4c29bbd4900fddb31c8f";
       const redirectUri = url;
       const scopes = [
@@ -22,8 +19,6 @@ const SpotifyAuth = ({ onAuthSuccess }) => {
         scopes
       )}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
-      setAuthUrl(authUrl);
-
       const hash = window.location.hash;
       const accessToken = new URLSearchParams(hash.substring(1)).get(
         "access_token"
@@ -32,7 +27,6 @@ const SpotifyAuth = ({ onAuthSuccess }) => {
       if (!accessToken) {
         window.location.href = authUrl;
       } else {
-        setIsAuthenticated(true);
         onAuthSuccess(accessToken);
       }
     }
