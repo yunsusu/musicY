@@ -1,13 +1,59 @@
-@import "@/styles/main.scss";
-
 .mainWrap {
   position: absolute;
-  left: 54%;
+  left: 50%;
   transform: translateX(-50%);
   width: 85vw;
   height: 75vh;
   border-radius: 3rem;
-  background-color: rgba($color: #fff, $alpha: 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+
+  & > form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+
+    input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #1db954;
+      }
+
+      &::placeholder {
+        color: #888;
+      }
+    }
+
+    button {
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      border: none;
+      background-color: #1db954; /* Spotify 녹색 */
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: #17a74b;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
 }
 
 .musicWrap {

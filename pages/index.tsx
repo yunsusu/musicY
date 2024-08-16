@@ -39,10 +39,10 @@ export default function Home() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
-            placeholder="Song name"
+            placeholder="노래, 아티스트 이름 검색"
             {...register("songName")}
           />
-          <button type="submit">Search</button>
+          <button type="submit">검색</button>
         </form>
         <div className={style.musicWrap}>
           {song?.map((item: any, index: any) => (
