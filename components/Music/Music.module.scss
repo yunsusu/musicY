@@ -1,14 +1,22 @@
 @import "@/styles/main.scss";
 
 .musicWrap {
-  width: 47%;
+  width: 50%;
   max-width: 50rem;
-  padding: 4rem 2rem;
-  height: 3rem;
-  background-color: rgba($color: green, $alpha: 0.5);
+  height: 10rem;
+  padding: 2rem;
+  background-color: rgba(0, 128, 0, 0.5); // 조금 더 부드러운 초록색으로 변경
   border-radius: 1.2rem;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: rgba(0, 128, 0, 0.7);
+    transform: translateY(-5px); // hover 시 살짝 위로 올라가도록 설정
+  }
+
   & div {
     font-size: 1.2rem;
     color: #fff;
@@ -19,20 +27,44 @@
   width: 6rem;
   height: 6rem;
   position: relative;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); // 이미지에 약간의 그림자 추가
 }
+
 .imgName {
   width: 100%;
   display: flex;
   gap: 1rem;
   align-items: center;
 }
-body .artistName {
+
+.artistName {
   font-size: 1.4rem;
   font-weight: 600;
 }
+
 .artist {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
+
 .play {
   cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #1db954; // Spotify 녹색
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #17a74b; // 조금 더 어두운 녹색으로 hover 효과
+    transform: scale(1.05); // hover 시 약간 커짐
+  }
+
+  &:active {
+    transform: scale(0.95); // 클릭 시 살짝 작아짐
+  }
 }
