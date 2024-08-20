@@ -10,8 +10,6 @@ export const playSong = async (
     return;
   }
 
-  console.log(`Playing song on device: ${deviceId}`);
-
   try {
     await instance2.put(
       `/v1/me/player/play?device_id=${deviceId}`,

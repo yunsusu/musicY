@@ -1,5 +1,10 @@
 import Link from "next/link";
 import style from "./gnb.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChartSimple,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Gnb() {
   return (
@@ -8,7 +13,12 @@ export default function Gnb() {
         MUSICY
       </Link>
 
-      <div className={style.gnbSearch}>검색</div>
+      <Link href={"/search"} className={`${style.gnbSearch} ${style.gnbItem}`}>
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
+      </Link>
+      <Link href={"/chart"} className={`${style.gnbChart} ${style.gnbItem}`}>
+        <FontAwesomeIcon icon={faChartSimple} />
+      </Link>
     </div>
   );
 }

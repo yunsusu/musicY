@@ -1,0 +1,56 @@
+.mainWrap {
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%);
+  width: 85vw;
+  height: 75vh;
+  border-radius: 3rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: scroll;
+}
+.categoryImg {
+  width: 5rem;
+  height: 5rem;
+  position: relative;
+}
+.categoryItem {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: rgba(153, 205, 50, 0.5);
+  border-radius: 4px;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+}
+.categoryTitle {
+  flex: 1;
+}
+
+.play {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #1db954; // Spotify 녹색
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #17a74b; // 조금 더 어두운 녹색으로 hover 효과
+    transform: scale(1.05); // hover 시 약간 커짐
+  }
+
+  &:active {
+    transform: scale(0.95); // 클릭 시 살짝 작아짐
+  }
+}
+.controlImg {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+}

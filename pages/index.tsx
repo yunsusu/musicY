@@ -1,53 +1,76 @@
 import Head from "next/head";
-import Music from "@/components/Music";
-import SpotifyAuth from "./spotify";
-import { useState } from "react";
-import PlayerControls from "@/components/PlayerControls";
 import { useQuery } from "@tanstack/react-query";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { searchSong } from "@/lib/apis/spotify/search";
 import style from "./main.module.scss";
 import { useAtom } from "jotai";
-import { access } from "@/lib/atoms/atoms";
+import { access, device, songChoice } from "@/lib/atoms/atoms";
+import { getCategories, getCategories2 } from "@/lib/apis/spotify/chart";
+import Image from "next/image";
+import Link from "next/link";
 
-type Inputs = {
-  songName: string;
-};
 export default function Home() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) =>
-    setSongSearch(data.songName);
+  const [accessToken] = useAtom(access);
+  const [, setChangeMusic] = useAtom(songChoice);
 
-  const [accessToken, setAccessToken] = useAtom(access);
-  const [songSearch, setSongSearch] = useState("j.clef");
+  // const handleChangeMusic = (item: string | ((prev: string) => string)) => {
+  //   setChangeMusic(item);
+  // };
 
-  const { data: song } = useQuery({
-    queryKey: ["song", songSearch],
-    queryFn: () => searchSong(songSearch, accessToken),
+  const { data: getCategory } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategories(accessToken),
+    enabled: !!accessToken,
+    staleTime: 60 * 1000,
   });
-  console.log(song);
+  const { data: getCategory2 } = useQuery({
+    queryKey: ["category2"],
+    queryFn: () => getCategories2(accessToken),
+    enabled: !!accessToken,
+    staleTime: 60 * 1000,
+  });
   return (
     <>
       <Head>
         <title>musicY</title>
       </Head>
       <div className={style.mainWrap}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            placeholder="노래, 아티스트 이름 검색"
-            {...register("songName")}
-          />
-          <button type="submit">검색</button>
-        </form>
-        <div className={style.musicWrap}>
-          {song?.map((item: any, index: any) => (
-            <Music key={index} song={item} />
-          ))}
+        <div>title</div>
+        <div className={style.categories}>
+          {/* {getCategory?.categories.items.map((item: any, index: number) => (
+            <Link
+              href={`/category/${item.id}`}
+              key={index}
+              className={style.category}
+            >
+              <h2>{item.name}</h2>
+              <div className={style.categoryImg}>
+                <Image src={item.icons[0].url} alt="icon" fill sizes="150px" />
+              </div>
+              <p>{item.description}</p>
+            </Link>
+          ))} */}
+        </div>
+        <div>
+          <div className={style.categories}>
+            {getCategory2?.playlists.items.map((item: any, index: number) => (
+              <Link
+                href={`/category/${item.id}`}
+                key={index}
+                // onClick={() => handleChangeMusic(item.uri)}
+                className={style.category}
+              >
+                <div className={style.categoryImg}>
+                  <Image
+                    src={item.images[0].url}
+                    alt="playlist"
+                    fill
+                    sizes="150px"
+                  />
+
+                  <div className={style.playlistTitle}>{item.name}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </>

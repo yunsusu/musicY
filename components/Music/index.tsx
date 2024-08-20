@@ -4,8 +4,7 @@ import { useAtom } from "jotai";
 import { songChoice } from "@/lib/atoms/atoms";
 
 export default function Music({ song }: any) {
-  console.log(song);
-  const [changeMusic, setChangeMusic] = useAtom(songChoice);
+  const [, setChangeMusic] = useAtom(songChoice);
 
   const handleChangeMusic = () => {
     setChangeMusic(song.uri);
@@ -26,7 +25,14 @@ export default function Music({ song }: any) {
           <div className={style.artistName}>{song.artists[0].name}</div>
         </div>
         <div className={style.play} onClick={handleChangeMusic}>
-          재생
+          <div className={style.controlImg}>
+            <Image
+              src="https://cdn.hugeicons.com/icons/play-solid-standard.svg"
+              alt="play"
+              fill
+              sizes="15px"
+            />
+          </div>
         </div>
       </div>
     </div>

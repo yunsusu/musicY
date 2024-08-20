@@ -3,7 +3,7 @@ import styles from "./PlayerControls.module.scss";
 import { useMutation } from "@tanstack/react-query";
 import { pauseSong, playSong } from "@/lib/apis/spotify/player";
 import { useAtom } from "jotai";
-import { access, songChoice } from "@/lib/atoms/atoms";
+import { access, device, songChoice } from "@/lib/atoms/atoms";
 import Image from "next/image";
 
 declare global {
@@ -15,14 +15,14 @@ declare global {
 
 const PlayerControls = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [deviceId, setDeviceId] = useAtom(device);
   const [player, setPlayer] = useState<any>(null);
   const [progress, setProgress] = useState(0); // 진행도를 저장할 상태
   const [trackDuration, setTrackDuration] = useState(0); // 트랙의 총 길이
   const [trackPosition, setTrackPosition] = useState(0); // 현재 트랙의 진행 시간
   const [track, setTrack] = useState<any>(null); // 현재 재생 중인 트랙 정보
   const [token, setToken] = useAtom(access);
-  const [changeMusic, setChangeMusic] = useAtom(songChoice);
+  const [changeMusic] = useAtom(songChoice);
   const [pausedPosition, setPausedPosition] = useState(0); // 일시정지 시점 저장
 
   // 실시간 progress 업데이트
@@ -156,9 +156,9 @@ const PlayerControls = () => {
   };
 
   return (
-    <div className={styles.playerControls}>
-      <div className={styles.trackInfo}>
-        {track ? (
+    track && (
+      <div className={styles.playerControls}>
+        <div className={styles.trackInfo}>
           <>
             <img src={track.album.images[0].url} alt={track.name} />
             <div className={styles.trackDetails}>
@@ -166,42 +166,40 @@ const PlayerControls = () => {
               <p className={styles.trackArtist}>{track.artists[0].name}</p>
             </div>
           </>
-        ) : (
-          <p>Loading track...</p>
-        )}
-      </div>
+        </div>
 
-      <div className={styles.controls}>
-        <button className={styles.controlButton} onClick={handleMusic}>
-          {deviceId && isPlaying ? (
-            <div className={styles.controlImg}>
-              <Image
-                src="https://cdn.hugeicons.com/icons/pause-solid-standard.svg"
-                alt="pause"
-                fill
-                sizes="30px"
-              />
-            </div>
-          ) : (
-            <div className={styles.controlImg}>
-              <Image
-                src="https://cdn.hugeicons.com/icons/play-solid-standard.svg"
-                alt="play"
-                fill
-                sizes="30px"
-              />
-            </div>
-          )}
-        </button>
-      </div>
+        <div className={styles.controls}>
+          <button className={styles.controlButton} onClick={handleMusic}>
+            {deviceId && isPlaying ? (
+              <div className={styles.controlImg}>
+                <Image
+                  src="https://cdn.hugeicons.com/icons/pause-solid-standard.svg"
+                  alt="pause"
+                  fill
+                  sizes="30px"
+                />
+              </div>
+            ) : (
+              <div className={styles.controlImg}>
+                <Image
+                  src="https://cdn.hugeicons.com/icons/play-solid-standard.svg"
+                  alt="play"
+                  fill
+                  sizes="30px"
+                />
+              </div>
+            )}
+          </button>
+        </div>
 
-      <div className={styles.progressBar} onClick={handleProgressClick}>
-        <div
-          className={styles.progress}
-          style={{ width: `${progress}%` }}
-        ></div>
+        <div className={styles.progressBar} onClick={handleProgressClick}>
+          <div
+            className={styles.progress}
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

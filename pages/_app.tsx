@@ -8,6 +8,9 @@ import { useAtom } from "jotai";
 import { access } from "@/lib/atoms/atoms";
 import PlayerControls from "@/components/PlayerControls";
 import SpotifyAuth from "./spotify";
+// import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css"; // 폰트어썸 기본 CSS
+// config.autoAddCss = false; // 폰트어썸의 자동 CSS 추가 기능 비활성화
 
 const queryClient = new QueryClient();
 
@@ -21,7 +24,7 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <Gnb />
-        <SpotifyAuth />
+        {!token && <SpotifyAuth />}
         {token && <PlayerControls />}
         <Component {...pageProps} />
         <ReactQueryDevtools initialIsOpen={false} />
