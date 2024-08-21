@@ -7,6 +7,7 @@ export const getPlayList = async (id: any, accessToken: any) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);

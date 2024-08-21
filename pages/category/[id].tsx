@@ -1,11 +1,13 @@
 import Head from "next/head";
 import style from "./style.module.scss";
 import { useAtom } from "jotai";
-import { access, songChoice } from "@/lib/atoms/atoms";
+import { access, device, songChoice } from "@/lib/atoms/atoms";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPlayList } from "@/lib/apis/spotify/playlists";
 import Image from "next/image";
+import { Console } from "console";
+import { playListMore } from "@/lib/apis/spotify/player";
 
 export default function Home() {
   const [accessToken] = useAtom(access);
@@ -23,12 +25,29 @@ export default function Home() {
     queryFn: () => getPlayList(id, accessToken),
     enabled: !!id && !!accessToken,
   });
+
+  const { mutate: playAll } = useMutation({
+    mutationFn: (item) => playListMore(accessToken, item),
+    onSuccess: () => {
+      console.log("playAll success");
+    },
+    onError: (error) => {
+      console.error("playAll error", error);
+    },
+  });
+  const handle = () => {
+    playlist.items.map((item: any) => {
+      playAll(item.track.uri);
+    });
+  };
+
   return (
     <>
       <Head>
         <title>musicY</title>
       </Head>
       <div className={style.mainWrap}>
+        <div onClick={handle}>전체 재생</div>
         {playlist?.items.map((item: any, index: number) => (
           <div key={index} className={style.categoryItem}>
             <div className={style.categoryImg}>

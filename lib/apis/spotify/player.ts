@@ -54,3 +54,39 @@ export const pauseSong = async (
     console.error("Error pausing song:", error);
   }
 };
+
+export const playListMore = async (accessToken: string, more: any) => {
+  try {
+    const res = await instance2.post(
+      `/v1/me/player/queue?uri=${more}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const playerSkip = async (PN: string, accessToken: string) => {
+  try {
+    const res = await instance2.post(
+      `/v1/me/player/${PN}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};

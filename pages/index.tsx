@@ -15,12 +15,12 @@ export default function Home() {
   //   setChangeMusic(item);
   // };
 
-  const { data: getCategory } = useQuery({
-    queryKey: ["category"],
-    queryFn: () => getCategories(accessToken),
-    enabled: !!accessToken,
-    staleTime: 60 * 1000,
-  });
+  // const { data: getCategory } = useQuery({
+  //   queryKey: ["category"],
+  //   queryFn: () => getCategories(accessToken),
+  //   enabled: !!accessToken,
+  //   staleTime: 60 * 1000,
+  // });
   const { data: getCategory2 } = useQuery({
     queryKey: ["category2"],
     queryFn: () => getCategories2(accessToken),
@@ -33,7 +33,7 @@ export default function Home() {
         <title>musicY</title>
       </Head>
       <div className={style.mainWrap}>
-        <div>title</div>
+        <div>추천 재생목록</div>
         <div className={style.categories}>
           {/* {getCategory?.categories.items.map((item: any, index: number) => (
             <Link

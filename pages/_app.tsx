@@ -25,7 +25,7 @@ function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <Gnb />
         {!token && <SpotifyAuth />}
-        {token && <PlayerControls />}
+        <PlayerControls />
         <Component {...pageProps} />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

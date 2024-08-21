@@ -1,16 +1,3 @@
-.playerControls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #1db954; /* Spotify 그린 */
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: 0 auto;
-}
-
 .controlButton {
   background-color: white;
   color: #1db954;
@@ -51,15 +38,19 @@
   margin-top: 10px;
 }
 .playerControls {
+  display: flex;
+  // flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin: 0 auto;
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   height: 15rem;
   background-color: #121212;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 10px 20px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
   z-index: 99;
@@ -67,6 +58,7 @@
 
 .trackInfo {
   width: 100%;
+  max-width: 13rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -80,9 +72,17 @@
 
   .trackDetails {
     .trackName {
-      color: #fff;
+      max-width: 10rem;
+      height: 2rem;
+      white-space: nowrap;
+      overflow: hidden;
       font-weight: bold;
       font-size: 16px;
+
+      & > div {
+        width: fit-content;
+        color: #fff;
+      }
     }
 
     .trackArtist {
@@ -115,6 +115,11 @@
 }
 
 .controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: #fff;
   .controlButton {
     background-color: #1db954;
     color: white;
@@ -131,7 +136,30 @@
     }
   }
 }
+.controlsWrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.controlPrev,
+.controlNext {
+  background-color: #1db954;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  &:hover {
+    background-color: #1ed760;
+  }
+}
 .controlImg {
   position: relative;
   width: 3rem;
@@ -142,10 +170,14 @@
   width: 100%;
   height: 5px;
   background-color: #404040;
-  border-radius: 2px;
+  border-radius: 10px;
   margin-top: 10px;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    height: 1rem;
+  }
 
   .progress {
     height: 100%;
